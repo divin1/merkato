@@ -21,9 +21,6 @@ uv.lock
 *.swp
 *.swo
 
-# Config (keep template, ignore actual config with secrets)
-# config.json  # Uncomment this if you don't want to commit your config
-
 # Data
 stock_data.csv
 
