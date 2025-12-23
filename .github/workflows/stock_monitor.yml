@@ -27,15 +27,10 @@ jobs:
           EMAIL_SMTP_PORT: ${{ secrets.EMAIL_SMTP_PORT }}
         run: |
           uv run stock-monitor
-      - name: Commit and push data
-        run: >
-          git config --local user.email
-          "github-actions[bot]@users.noreply.github.com"
-
+      - name: Commit and push if changes
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-
-          git add stock_data.csv
-
-          git diff --quiet && git diff --staged --quiet || git commit -m "Update stock data - $(date +'%Y-%m-%d %H:%M')"
-
+          git add data/stock_prices.csv
+          git diff --staged --quiet || git commit -m "Update stock prices data [skip ci]"
           git push
