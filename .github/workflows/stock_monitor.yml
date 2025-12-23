@@ -1,44 +1,41 @@
-name: Merkato: Stock Monitor
-
+---
+name: "Merkato: Stock Monitor"
 on:
   schedule:
-    # Run every hour at minute 0
-    - cron: '0 * * * *'
-  workflow_dispatch:  # Allow manual trigger
-
+    - cron: 0 * * * *
+  workflow_dispatch: null
 jobs:
   check-stocks:
     runs-on: ubuntu-latest
-    
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
-      
-    - name: Install uv
-      uses: astral-sh/setup-uv@v4
-      with:
-        version: "latest"
-        
-    - name: Set up Python
-      run: uv python install
-        
-    - name: Install dependencies
-      run: uv sync
-        
-    - name: Run stock monitor
-      env:
-        EMAIL_SENDER: ${{ secrets.EMAIL_SENDER }}
-        EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
-        EMAIL_RECIPIENT: ${{ secrets.EMAIL_RECIPIENT }}
-        EMAIL_SMTP_SERVER: ${{ secrets.EMAIL_SMTP_SERVER }}
-        EMAIL_SMTP_PORT: ${{ secrets.EMAIL_SMTP_PORT }}
-      run: |
-        uv run stock-monitor
-        
-    - name: Commit and push data
-      run: |
-        git config --local user.email "github-actions[bot]@users.noreply.github.com"
-        git config --local user.name "github-actions[bot]"
-        git add stock_data.csv
-        git diff --quiet && git diff --staged --quiet || git commit -m "Update stock data - $(date +'%Y-%m-%d %H:%M')"
-        git push
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Install uv
+        uses: astral-sh/setup-uv@v4
+        with:
+          version: latest
+      - name: Set up Python
+        run: uv python install
+      - name: Install dependencies
+        run: uv sync
+      - name: Run stock monitor
+        env:
+          EMAIL_SENDER: ${{ secrets.EMAIL_SENDER }}
+          EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
+          EMAIL_RECIPIENT: ${{ secrets.EMAIL_RECIPIENT }}
+          EMAIL_SMTP_SERVER: ${{ secrets.EMAIL_SMTP_SERVER }}
+          EMAIL_SMTP_PORT: ${{ secrets.EMAIL_SMTP_PORT }}
+        run: |
+          uv run stock-monitor
+      - name: Commit and push data
+        run: >
+          git config --local user.email
+          "github-actions[bot]@users.noreply.github.com"
+
+          git config --local user.name "github-actions[bot]"
+
+          git add stock_data.csv
+
+          git diff --quiet && git diff --staged --quiet || git commit -m "Update stock data - $(date +'%Y-%m-%d %H:%M')"
+
+          git push
