@@ -3,6 +3,7 @@ import os
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+from pathlib import Path
 
 import pandas as pd
 from dotenv import load_dotenv
@@ -43,7 +44,8 @@ def load_config():
 def load_or_create_data():
     """Load existing data or create new DataFrame"""
     # Ensure data directory exists
-    DATA_FILE.parent.mkdir(parents=True, exist_ok=True)
+    data_path = Path(DATA_FILE)
+    data_path.parent.mkdir(parents=True, exist_ok=True)
 
     if DATA_FILE.exists():
         return pd.read_csv(DATA_FILE)
