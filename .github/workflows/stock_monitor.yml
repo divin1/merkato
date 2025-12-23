@@ -4,6 +4,10 @@ on:
   schedule:
     - cron: 0 * * * *
   workflow_dispatch: null
+
+permissions:
+  contents: write
+  
 jobs:
   check-stocks:
     runs-on: ubuntu-latest
@@ -32,5 +36,5 @@ jobs:
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add data/stock_data.csv
-          git diff --staged --quiet || git commit -m "Update stock prices data [skip ci]"
+          git diff --staged --quiet || git commit -m "auto: update stock prices data [skip ci]"
           git push
