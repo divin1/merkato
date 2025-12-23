@@ -1,0 +1,24 @@
+{
+  "stocks": [
+    {
+      "symbol": "VT",
+      "target_price": 140.00
+    },
+    {
+      "symbol": "CHSPI.SW",
+      "target_price": 150.00
+    },
+    {
+      "symbol": "GOOG",
+      "target_price": 280.00
+    },
+    {
+      "symbol": "NVDA",
+      "target_price": 150.00
+    },
+    {
+      "symbol": "AMD",
+      "target_price": 200.00
+    }
+  ]
+}
