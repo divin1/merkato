@@ -4,12 +4,12 @@ Minimal, python-based, stock market monitoring bot using GitHub and email notifi
 
 ## Get started
 
-## Prerequisites
+### Prerequisites
 
 - Python 3.11+
 - [UV](https://docs.astral.sh/uv/)
 
-## Setup
+### Setup
 
 1. Install project dependencies: `uv sync`.
 2. Configure env variables in GitHub workflows (`.github/workflows/`) and in the repository.
