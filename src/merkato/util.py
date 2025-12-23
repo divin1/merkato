@@ -47,7 +47,7 @@ def load_or_create_data():
     data_path = Path(DATA_FILE)
     data_path.parent.mkdir(parents=True, exist_ok=True)
 
-    if DATA_FILE.exists():
+    if data_path.exists():
         return pd.read_csv(DATA_FILE)
     else:
         return pd.DataFrame(columns=["timestamp", "symbol", "price"])
