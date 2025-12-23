@@ -41,8 +41,11 @@ def load_config():
 
 
 def load_or_create_data():
-    """Load existing CSV or create new one"""
-    if os.path.exists(DATA_FILE):
+    """Load existing data or create new DataFrame"""
+    # Ensure data directory exists
+    DATA_FILE.parent.mkdir(parents=True, exist_ok=True)
+
+    if DATA_FILE.exists():
         return pd.read_csv(DATA_FILE)
     else:
         return pd.DataFrame(columns=["timestamp", "symbol", "price"])
