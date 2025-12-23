@@ -41,11 +41,21 @@ EMAIL_SMTP_PORT=
 **Stock Symbols:** Use Yahoo Finance ticker symbols (e.g., SPY, QQQ, AAPL, MSFT, VTI).
 By default, `stock_monitor.py` runs every hour, while `weekly_report.py` runs every Thursday at 08:00 UTC.
 
-## Testing locally
+# Development
 
 ```bash
-# Run tests
-uv run test-bot
+# Format code
+make format
+
+# Lint code
+make lint
+```
+
+# Testing
+
+```bash
+# Run integration tests
+uv run it
 
 # Run the actual monitor (will send emails)
 uv run stock-monitor
@@ -53,3 +63,5 @@ uv run stock-monitor
 # Run weekly reporting (will send emails)
 uv run weekly-report
 ```
+
+Or use Makefile targets, see `make help` to list all targets.
