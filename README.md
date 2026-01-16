@@ -2,6 +2,12 @@
 
 Minimal, python-based, stock market monitoring bot using GitHub and email notifications.
 
+The **real goal** of this small project is to demonstrate how much can be achieved with just a free GitHub repo.
+
+* Automated tasks execution via GitHub Actions.
+* Storage of processed data in the GitHub repo itself, committed by the GitHub Actions bot.
+* Email notifications: Gmail API (free)
+
 ## Get started
 
 ### Prerequisites
