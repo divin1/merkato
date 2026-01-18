@@ -9,7 +9,7 @@ from datetime import datetime
 import pandas as pd
 import yfinance as yf
 
-from merkato.util import DATA_FILE, load_config, load_or_create_data, send_email
+from merkato.util import get_data_file, load_config, load_or_create_data, send_email
 
 
 def get_stock_price(symbol):
@@ -27,7 +27,7 @@ def get_stock_price(symbol):
 
 def save_data(df):
     """Save data to CSV"""
-    df.to_csv(DATA_FILE, index=False)
+    df.to_csv(get_data_file(), index=False)
 
 
 def check_and_record_prices(config):

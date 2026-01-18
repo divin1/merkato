@@ -1,6 +1,7 @@
 import json
 import os
 import smtplib
+from datetime import datetime
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from pathlib import Path
@@ -9,8 +10,13 @@ import pandas as pd
 from dotenv import load_dotenv
 
 # Configuration
-DATA_FILE = "data/stock_data.csv"
 CONFIG_FILE = "config.json"
+
+
+def get_data_file():
+    """Get the data file path for the current year."""
+    year = datetime.now().year
+    return f"data/{year}.csv"
 
 
 # Utility functions
@@ -43,12 +49,13 @@ def load_config():
 
 def load_or_create_data():
     """Load existing data or create new DataFrame"""
+    data_file = get_data_file()
     # Ensure data directory exists
-    data_path = Path(DATA_FILE)
+    data_path = Path(data_file)
     data_path.parent.mkdir(parents=True, exist_ok=True)
 
     if data_path.exists():
-        return pd.read_csv(DATA_FILE)
+        return pd.read_csv(data_file)
     else:
         return pd.DataFrame(columns=["timestamp", "symbol", "price"])
 

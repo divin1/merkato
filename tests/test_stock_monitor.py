@@ -47,7 +47,7 @@ class TestStockMonitor:
 
         df = pd.DataFrame({"timestamp": ["2024-01-01 12:00:00"], "symbol": ["AAPL"], "price": [150.0]})
 
-        with patch("merkato.stock_monitor.DATA_FILE", str(data_file)):
+        with patch("merkato.stock_monitor.get_data_file", return_value=str(data_file)):
             save_data(df)
 
             # Verify file was created and contains correct data
