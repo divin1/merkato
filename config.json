@@ -19,6 +19,10 @@
     {
       "symbol": "AMD",
       "target_price": 200.00
+    },
+    {
+      "symbol": "CTEC.SW",
+      "target_price": 6.00
     }
   ]
 }
