@@ -2,27 +2,33 @@
   "stocks": [
     {
       "symbol": "VT",
-      "target_price": 140.00
+      "target_price": 140.00,
+      "operator": "<="
     },
     {
       "symbol": "CHSPI.SW",
-      "target_price": 150.00
+      "target_price": 150.00,
+      "operator": "<="
     },
     {
       "symbol": "GOOG",
-      "target_price": 280.00
+      "target_price": 280.00,
+      "operator": "<="
     },
     {
       "symbol": "NVDA",
-      "target_price": 150.00
+      "target_price": 150.00,
+      "operator": "<="
     },
     {
       "symbol": "AMD",
-      "target_price": 200.00
+      "target_price": 200.00,
+      "operator": "<="
     },
     {
       "symbol": "CTEC.SW",
-      "target_price": 6.00
+      "target_price": 6.00,
+      "operator": ">="
     }
   ]
 }
