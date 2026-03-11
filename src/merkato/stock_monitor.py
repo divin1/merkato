@@ -30,6 +30,14 @@ def save_data(df):
     df.to_csv(get_data_file(), index=False)
 
 
+OPERATORS = {
+    "<": lambda a, b: a < b,
+    "<=": lambda a, b: a <= b,
+    ">": lambda a, b: a > b,
+    ">=": lambda a, b: a >= b,
+}
+
+
 def check_and_record_prices(config):
     """Check all stocks and record prices"""
     df = load_or_create_data()
@@ -39,6 +47,11 @@ def check_and_record_prices(config):
     for stock in config["stocks"]:
         symbol = stock["symbol"]
         target_price = stock["target_price"]
+        operator = stock.get("operator", "<=")
+
+        if operator not in OPERATORS:
+            print(f"Invalid operator '{operator}' for {symbol}, skipping.")
+            continue
 
         print(f"Checking {symbol}...")
         current_price = get_stock_price(symbol)
@@ -49,9 +62,9 @@ def check_and_record_prices(config):
             df = pd.concat([df, new_row], ignore_index=True)
 
             # Check if alert should be sent
-            if current_price <= target_price:
-                alerts.append({"symbol": symbol, "current_price": current_price, "target_price": target_price})
-                print(f"ALERT: {symbol} is at ${current_price:.2f} (target: ${target_price:.2f})")
+            if OPERATORS[operator](current_price, target_price):
+                alerts.append({"symbol": symbol, "current_price": current_price, "target_price": target_price, "operator": operator})
+                print(f"ALERT: {symbol} is at ${current_price:.2f} (target: {operator} ${target_price:.2f})")
 
     save_data(df)
     return alerts
@@ -63,13 +76,14 @@ def send_price_alerts(alerts, config):
         return
 
     body = "<h2>Stock Price Alerts</h2>"
-    body += "<p>The following stocks have reached or dropped below your target price:</p>"
+    body += "<p>The following stocks have met their target conditions:</p>"
     body += "<ul>"
 
     for alert in alerts:
+        operator = alert.get("operator", "<=")
         body += f"<li><strong>{alert['symbol']}</strong>: "
         body += f"${alert['current_price']:.2f} "
-        body += f"(Target: ${alert['target_price']:.2f})</li>"
+        body += f"(Target: {operator} ${alert['target_price']:.2f})</li>"
 
     body += "</ul>"
 
